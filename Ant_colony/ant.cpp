@@ -1,13 +1,17 @@
 #include "ant.h"
+#include "constants.h"
+
+#include <QDebug>
 #include <QtMath>
 
-Ant::Ant()
+Ant::Ant(int id)
 {
     int startX, startY;
     //qreal penWidth = 1;
     //radius = 50;
-    diameter = 20;
-    speed = 5;
+    this->id = id;
+    diameter = Constants::ANT_DIAMETER;
+    speed = Constants::ANT_SPEED;
     angle = qrand() % 360;
 
     startX = ((qrand() % 200) - 100)*2;
@@ -47,13 +51,17 @@ void Ant::advance(int phase)
     }
     else
     {
+        for (int i = 0, length = scene()->collidingItems(this).length(); i < length; ++i)
+        {
+            qDebug() << "Collision! num: " << i+1 << " pos: " << mapToParent(scene()->collidingItems(this)[i]->pos());
+        }
         //collision!!!!
         setBrush(Qt::red);
 
         //Set the position
         //DoCollision();
     }
-    TurnRandomAngleAndMove(30);
+    TurnRandomAngleAndMove(Constants::ANT_ANGLE);
 }
 
 void Ant::DoCollision()

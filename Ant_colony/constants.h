@@ -10,6 +10,10 @@ namespace Constants
 
     const int ANTS_COUNT = 5;
     const int TIMER_STEP_MS = 100;
+
+    const int ANT_SPEED = 5;
+    const int ANT_DIAMETER = 20;
+    const int ANT_ANGLE = 30;
 }
 
 #endif // CONSTANTS

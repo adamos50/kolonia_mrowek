@@ -34,7 +34,7 @@ void Dialog::addAntsToScene()
 {
     for(int i = 0; i < Constants::ANTS_COUNT; ++i)
     {
-        Ant *ant = new Ant();
+        Ant *ant = new Ant(i+1);
         scene->addItem(ant);
         qDebug() << ant->rect();
     }

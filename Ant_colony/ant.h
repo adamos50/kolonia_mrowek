@@ -5,17 +5,17 @@
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
-#include <QDebug>
 
 class Ant : public QGraphicsEllipseItem
 {
 public:
-    Ant();
+    Ant(int id);
 
 protected:
     void advance(int phase);
 
 private:
+    int id;
     qreal radius;
     qreal diameter;
     qreal angle;
