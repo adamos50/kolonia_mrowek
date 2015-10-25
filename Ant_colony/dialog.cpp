@@ -1,6 +1,7 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 #include "ant.h"
+#include "food.h"
 #include "constants.h"
 
 #include <QDebug>
@@ -30,6 +31,16 @@ void Dialog::addGraphicsViewToUi()
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
 
+void Dialog::addFoodToScene()
+{
+    for(int i = 0; i < Constants::FOOD_COUNT; ++i)
+    {
+        Food *food = new Food(i+1);
+        scene->addItem(food);
+        food->setNewPositionIfSceneCollision();
+    }
+}
+
 void Dialog::addAntsToScene()
 {
     for(int i = 0; i < Constants::ANTS_COUNT; ++i)
@@ -54,6 +65,8 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
     addGraphicsViewToUi();
     addRectangularBoundaryLinesToScene(Qt::red);
+
+    addFoodToScene();
     addAntsToScene();
     setTimerToScene();
 }

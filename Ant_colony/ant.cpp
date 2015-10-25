@@ -1,6 +1,7 @@
 #include "ant.h"
 #include "constants.h"
 
+#include <QGraphicsScene>
 #include <QDebug>
 #include <QtMath>
 
@@ -15,11 +16,12 @@ Ant::Ant(int id)
 
     startX = (qrand() % (Constants::SCENE_RECT_WIDTH - 2*diameter -2) + Constants::SCENE_RECT_X + 1);
     startY = (qrand() % (Constants::SCENE_RECT_HIGH - 2*diameter -2) + Constants::SCENE_RECT_Y + 1);
-    qDebug() << "Start position set. ant.id: " << this->id << " pos: " << startX << " " << startY;
+    qDebug() << "Ant start position set. ant.id: " << this->id << " pos: " << startX << " " << startY;
 
     setPen(QPen(Qt::black));
     setBrush(QBrush(Qt::blue));
-    setRect(startX, startY, diameter, diameter);
+    setRect(0, 0, diameter, diameter);
+    setPos(startX, startY);
 }
 
 void Ant::setNewPositionIfSceneCollision()
@@ -29,7 +31,7 @@ void Ant::setNewPositionIfSceneCollision()
         int startX = (qrand() % (Constants::SCENE_RECT_WIDTH - 2*diameter -2) + Constants::SCENE_RECT_X + 1);
         int startY = (qrand() % (Constants::SCENE_RECT_HIGH - 2*diameter -2) + Constants::SCENE_RECT_Y + 1);
         setPos(startX, startY);
-        qDebug() << "Collision! New position set. ant.id: " << id << " pos: " << startX << " " << startY;
+        qDebug() << "Collision! New ant position set. ant.id: " << id << " pos: " << startX << " " << startY;
     }
 }
 

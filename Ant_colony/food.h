@@ -1,31 +1,28 @@
-#ifndef ANT_H
-#define ANT_H
+#ifndef FOOD_H
+#define FOOD_H
 
 #include <QPainter>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 
-class Ant : public QGraphicsEllipseItem
+class Food : public QGraphicsEllipseItem
 {
 public:
-    Ant(int id);
+    Food(int id);
     void setNewPositionIfSceneCollision();
+    //int getFoodAmount() const;
 
 protected:
     void advance(int phase);
 
 private:
     int id;
-    qreal radius;
+    int foodAmount;
     int diameter;
-    qreal angle;
-    qreal speed;
-    void TurnAngleAndMove(int angle);
-    void TurnRandomAngleAndMove(int angle);
 
 signals:
 
 public slots:
 };
 
-#endif // ANT_H
+#endif // FOOD_H
