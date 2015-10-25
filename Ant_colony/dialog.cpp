@@ -36,7 +36,7 @@ void Dialog::addAntsToScene()
     {
         Ant *ant = new Ant(i+1);
         scene->addItem(ant);
-        qDebug() << ant->rect();
+        ant->setNewPositionIfSceneCollision();
     }
 }
 

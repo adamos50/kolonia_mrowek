@@ -10,6 +10,7 @@ class Ant : public QGraphicsEllipseItem
 {
 public:
     Ant(int id);
+    void setNewPositionIfSceneCollision();
 
 protected:
     void advance(int phase);
@@ -22,7 +23,6 @@ private:
     qreal speed;
     void TurnAngleAndMove(int angle);
     void TurnRandomAngleAndMove(int angle);
-    void DoCollision();
 
 signals:
 
