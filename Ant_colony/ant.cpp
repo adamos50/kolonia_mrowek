@@ -6,29 +6,37 @@
 
 Ant::Ant(int id)
 {
-    int startX, startY;
-    //qreal penWidth = 1;
+    int startX, startY;//, penWidth = 1;
     //radius = 50;
     this->id = id;
     diameter = Constants::ANT_DIAMETER;
     speed = Constants::ANT_SPEED;
     angle = qrand() % 360;
 
-    startX = ((qrand() % 200) - 100)*2;
-    startY = ((qrand() % 200) - 100)*2;
+    startX = (qrand() % (Constants::SCENE_RECT_WIDTH - 2*diameter -2) + Constants::SCENE_RECT_X + 1);
+    startY = (qrand() % (Constants::SCENE_RECT_HIGH - 2*diameter -2) + Constants::SCENE_RECT_Y + 1);
+    qDebug() << startX << " " << startY;
 
-    setRect(startX, startY, diameter, diameter);
+    //not working, don't have scene yet. Set position after added to scene
+//    while (!scene()->collidingItems(this).isEmpty())
+//    {
+//        startX = (qrand() % (Constants::SCENE_RECT_WIDTH - 2*diameter -2) + Constants::SCENE_RECT_X + 1);
+//        startY = (qrand() % (Constants::SCENE_RECT_HIGH - 2*diameter -2) + Constants::SCENE_RECT_Y + 1);
+//        qDebug() << startX << " " << startY;
+//    }
+
     setPen(QPen(Qt::black));
     setBrush(QBrush(Qt::blue));
+    setRect(startX, startY, diameter, diameter);
     //setRect(-radius - penWidth / 2, -radius - penWidth / 2, diameter + penWidth, diameter + penWidth);
 }
 
 void Ant::TurnAngleAndMove(int angle)
 {
     qreal x, y;
+    this->angle += angle;
     x = qCos(qDegreesToRadians(this->angle)) * speed;
     y = qSin(qDegreesToRadians(this->angle)) * speed;
-    this->angle += angle;
     setPos(mapToParent(x,y));
 }
 
@@ -43,7 +51,7 @@ void Ant::advance(int phase)
 {
     if(!phase) return;
 
-    QPointF location = this->pos();
+    TurnRandomAngleAndMove(Constants::ANT_ANGLE);
     if(scene()->collidingItems(this).isEmpty())
     {
         //no collision
@@ -51,26 +59,25 @@ void Ant::advance(int phase)
     }
     else
     {
-        for (int i = 0, length = scene()->collidingItems(this).length(); i < length; ++i)
-        {
-            qDebug() << "Collision! num: " << i+1 << " pos: " << mapToParent(scene()->collidingItems(this)[i]->pos());
-        }
+//        for (int i = 0, length = scene()->collidingItems(this).length(); i < length; ++i)
+//        {
+//            qDebug() << "Collision! num: " << i+1 << " pos: " << mapToParent(scene()->collidingItems(this)[i]->pos());
+//        }
         //collision!!!!
         setBrush(Qt::red);
 
         //Set the position
-        //DoCollision();
+        DoCollision();
     }
-    TurnRandomAngleAndMove(Constants::ANT_ANGLE);
 }
 
 void Ant::DoCollision()
 {
-    setRotation(rotation() + (180 + (qrand() % 20) - 10));
-    QPointF newpoint = mapToParent(-(boundingRect().width()), -(boundingRect().width()));
-    qDebug() << -(boundingRect().width());
-    if(scene()->sceneRect().contains((newpoint)))
-    {
-        setPos(newpoint);
-    }
+    TurnAngleAndMove(180);
+    //QPointF newpoint = mapToParent(-(boundingRect().width()), -(boundingRect().width()));
+    //qDebug() << -(boundingRect().width());
+//    if(scene()->sceneRect().contains((newpoint)))
+//    {
+//        setPos(newpoint);
+//    }
 }

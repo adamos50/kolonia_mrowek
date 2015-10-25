@@ -17,7 +17,7 @@ protected:
 private:
     int id;
     qreal radius;
-    qreal diameter;
+    int diameter;
     qreal angle;
     qreal speed;
     void TurnAngleAndMove(int angle);
