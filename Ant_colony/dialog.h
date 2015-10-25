@@ -25,6 +25,7 @@ private:
 
     void addRectangularBoundaryLinesToScene(Qt::GlobalColor color);
     void addGraphicsViewToUi();
+    void addAnthillToScene();
     void addFoodToScene();
     void addAntsToScene();
     void setTimerToScene();

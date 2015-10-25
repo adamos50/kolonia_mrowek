@@ -35,7 +35,7 @@ void Ant::setNewPositionIfSceneCollision()
     }
 }
 
-void Ant::TurnAngleAndMove(int angle)
+void Ant::turnAngleAndMove(int angle)
 {
     qreal x, y;
     this->angle += angle;
@@ -44,18 +44,23 @@ void Ant::TurnAngleAndMove(int angle)
     setPos(mapToParent(x,y));
 }
 
-void Ant::TurnRandomAngleAndMove(int angle)
+void Ant::turnRandomAngleAndMove(int angle)
 {
     //angle E [-angle, angle]
     angle = qrand() % (2*angle) - angle;
-    TurnAngleAndMove(angle);
+    turnAngleAndMove(angle);
+}
+
+void Ant::goToAnthill()
+{
+
 }
 
 void Ant::advance(int phase)
 {
     if(!phase) return;
 
-    TurnRandomAngleAndMove(Constants::ANT_ANGLE);
+    turnRandomAngleAndMove(Constants::ANT_ANGLE);
 
     if(scene()->collidingItems(this).isEmpty())
     {
@@ -66,6 +71,6 @@ void Ant::advance(int phase)
     {
         //collision!!!!
         setBrush(Qt::red);
-        TurnAngleAndMove(180);
+        turnAngleAndMove(180);
     }
 }

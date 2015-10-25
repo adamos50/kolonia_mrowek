@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         dialog.cpp \
     ant.cpp \
-    food.cpp
+    food.cpp \
+    anthill.cpp
 
 HEADERS  += dialog.h \
     ant.h \
     constants.h \
-    food.h
+    food.h \
+    anthill.h
 
 FORMS    += dialog.ui

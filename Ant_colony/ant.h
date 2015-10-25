@@ -20,8 +20,9 @@ private:
     int diameter;
     qreal angle;
     qreal speed;
-    void TurnAngleAndMove(int angle);
-    void TurnRandomAngleAndMove(int angle);
+    void turnAngleAndMove(int angle);
+    void turnRandomAngleAndMove(int angle);
+    void goToAnthill();
 
 signals:
 

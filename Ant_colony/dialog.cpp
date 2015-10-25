@@ -1,5 +1,6 @@
 #include "dialog.h"
 #include "ui_dialog.h"
+#include "anthill.h"
 #include "ant.h"
 #include "food.h"
 #include "constants.h"
@@ -29,6 +30,12 @@ void Dialog::addGraphicsViewToUi()
 
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+}
+
+void Dialog::addAnthillToScene()
+{
+    Anthill *anthill = new Anthill();
+    scene->addItem(anthill);
 }
 
 void Dialog::addFoodToScene()
@@ -66,6 +73,7 @@ Dialog::Dialog(QWidget *parent) :
     addGraphicsViewToUi();
     addRectangularBoundaryLinesToScene(Qt::red);
 
+    addAnthillToScene();
     addFoodToScene();
     addAntsToScene();
     setTimerToScene();
