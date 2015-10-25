@@ -47,19 +47,41 @@ void Ant::turnAngleAndMove(int angle)
 void Ant::turnRandomAngleAndMove(int angle)
 {
     //angle E [-angle, angle]
-    angle = qrand() % (2*angle) - angle;
+    if (angle != 0)
+    {
+        angle = qrand() % (2*angle) - angle;
+    }
     turnAngleAndMove(angle);
 }
 
-void Ant::goToAnthill()
+qreal Ant::calculateVectorValue(qreal x, qreal y)
 {
+    return sqrt(pow(x, 2) + pow(y, 2));
+}
 
+QPointF Ant::calculatePositionToAnthill(qreal diffX, qreal diffY)
+{
+    qreal diffVectorValue = calculateVectorValue(diffX, diffY);
+    qreal newX = diffX * speed / diffVectorValue;
+    qreal newY = diffY * speed / diffVectorValue;
+    return pos() + QPointF(newX, newY);
+}
+
+void Ant::moveToAnthill()
+{
+    qreal diffX = Constants::ANTHILL_X - pos().x();
+    qreal diffY = Constants::ANTHILL_Y - pos().y();
+
+    QPointF newPosition = calculatePositionToAnthill(diffX, diffY);
+    setPos(newPosition);
+    qDebug() << "Go to Anthill. New ant position set. ant.id: " << id << " pos: "<< newPosition.x() << " " << newPosition.y();
 }
 
 void Ant::advance(int phase)
 {
     if(!phase) return;
 
+    //moveToAnthill();
     turnRandomAngleAndMove(Constants::ANT_ANGLE);
 
     if(scene()->collidingItems(this).isEmpty())

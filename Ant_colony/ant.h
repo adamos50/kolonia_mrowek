@@ -16,13 +16,15 @@ protected:
 
 private:
     int id;
-    qreal radius;
     int diameter;
     qreal angle;
     qreal speed;
+
     void turnAngleAndMove(int angle);
     void turnRandomAngleAndMove(int angle);
-    void goToAnthill();
+    qreal calculateVectorValue(qreal x, qreal y);
+    QPointF calculatePositionToAnthill(qreal diffX, qreal diffY);
+    void moveToAnthill();
 
 signals:
 

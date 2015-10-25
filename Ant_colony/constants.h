@@ -8,14 +8,14 @@ namespace Constants
     const int SCENE_RECT_WIDTH = 1000;
     const int SCENE_RECT_HIGH = 600;
 
-    const int TIMER_STEP_MS = 10;
+    const int TIMER_STEP_MS = 50;
 
-    const int ANTS_COUNT = 50;
+    const int ANTS_COUNT = 1;
     const int ANT_SPEED = 2;
     const int ANT_DIAMETER = 20;
     const int ANT_ANGLE = 30;
 
-    const int FOOD_COUNT = 15;
+    const int FOOD_COUNT = 0;
     const int FOOD_DIAMETER = 50;
     const int FOOD_AMOUNT = 50;
 
