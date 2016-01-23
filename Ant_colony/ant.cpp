@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QtMath>
 
-Ant::Ant(int id, Anthill *anthill, QList<Food *> foodList)
+Ant::Ant(int id, Anthill *anthill, QList<Food *> foodList, QObject *parent) : QObject(parent)
 {
     int startX, startY;
 
@@ -112,8 +112,11 @@ bool Ant::isCollidingWithFood()
 
 void Ant::collectFood()
 {
+    QMutex mutex;
+    mutex.lock();
     this->foodAmount = foodCollidingItem->yieldFood(Constants::ANT_CAPACITY);
     qDebug() << "Ant " << this->id << " collected food.";
+    mutex.unlock();
 }
 
 void Ant::handleFoodCollision()
@@ -126,9 +129,12 @@ void Ant::handleFoodCollision()
 
 void Ant::storeFoodToAnthill()
 {
+    QMutex mutex;
+    mutex.lock();
     anthill->storeFood(this->foodAmount);
     this->foodAmount = 0;
     qDebug() << "Ant " << this->id << " stored its food to anthill.";
+    mutex.unlock();
 }
 
 void Ant::handleAnthillCollision()
@@ -176,7 +182,7 @@ void Ant::advance(int phase)
                 QPointF anthillPos = QPointF(anthill->x() + anthill->getDiameter()/2,
                                              anthill->y() + anthill->getDiameter()/2);
                 QPointF foodPos = QPointF(foodCollidingItem->x() + foodCollidingItem->getDiameter()/2,
-                                                      foodCollidingItem->y() + foodCollidingItem->getDiameter()/2);
+                                          foodCollidingItem->y() + foodCollidingItem->getDiameter()/2);
 
                 int anthillAngle = calculateAngleToPos(anthillPos);
                 int foodAngle = calculateAngleToPos(foodPos);

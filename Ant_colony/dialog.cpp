@@ -3,6 +3,7 @@
 #include "ant.h"
 #include "constants.h"
 
+#include <QThread>
 #include <QDebug>
 
 void Dialog::addRectangularBoundaryLinesToScene(Qt::GlobalColor color)
@@ -54,9 +55,13 @@ void Dialog::addAntsToScene(Anthill* anthill, QList<Food *> foodList)
 {
     for(int i = 0; i < Constants::ANTS_COUNT; ++i)
     {
-        Ant *ant = new Ant(i+1, anthill, foodList);
+        Ant *ant = new Ant(i+1, anthill, foodList, this);
         scene->addItem(ant);
         ant->setNewPositionIfSceneCollision();
+
+        QThread* antThread = new QThread(this);
+        ant->moveToThread(antThread);
+        antThread->start();
     }
 }
 

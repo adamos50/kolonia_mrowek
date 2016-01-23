@@ -3,14 +3,15 @@
 
 #include <QPainter>
 #include <QGraphicsEllipseItem>
-#include <QGraphicsItem>
+#include <QObject>
 #include <anthill.h>
 #include <food.h>
 
-class Ant : public QGraphicsEllipseItem
+class Ant : public QObject, public QGraphicsEllipseItem
 {
+    Q_OBJECT
 public:
-    Ant(int id,Anthill* anthill, QList<Food *> foodList);
+    Ant(int id,Anthill* anthill, QList<Food *> foodList,QObject *parent = 0);
     void setNewPositionIfSceneCollision();
 
 protected:
