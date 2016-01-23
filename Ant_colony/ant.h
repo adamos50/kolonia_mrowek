@@ -29,6 +29,7 @@ private:
     void turnAngleAndMove(int angle = 0);
     void turnRandomAngleAndMove(int angle);
     qreal calculateVectorValue(qreal x, qreal y);
+    QPointF calculateDifferenceToPos(int x, int y);
     int calculateAngleToPos(int x, int y);
     void moveToAnthill();
     bool isCollidingWithAnthill();

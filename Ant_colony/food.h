@@ -11,6 +11,7 @@ public:
     Food(int id);
     void setNewPositionIfSceneCollision();
     int yieldFood(int foodAmount);
+    int getDiameter() const;
 
 protected:
     void advance(int phase);

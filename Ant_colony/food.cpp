@@ -44,6 +44,11 @@ int Food::yieldFood(int foodAmount)
     return 0;
 }
 
+int Food::getDiameter() const
+{
+    return diameter;
+}
+
 void Food::advance(int phase)
 {
     if(!phase) return;
