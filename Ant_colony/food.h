@@ -10,7 +10,7 @@ class Food : public QGraphicsEllipseItem
 public:
     Food(int id);
     void setNewPositionIfSceneCollision();
-    //int getFoodAmount() const;
+    int yieldFood(int foodAmount);
 
 protected:
     void advance(int phase);

@@ -33,10 +33,16 @@ void Food::setNewPositionIfSceneCollision()
     }
 }
 
-//int Food::getFoodAmount() const
-//{
-//    return foodAmount;
-//}
+int Food::yieldFood(int foodAmount)
+{
+    if (this->foodAmount >= foodAmount)
+    {
+        this->foodAmount -= foodAmount;
+        qDebug() << "Food collected. Actual food amount: " << this-> foodAmount;
+        return foodAmount;
+    }
+    return 0;
+}
 
 void Food::advance(int phase)
 {

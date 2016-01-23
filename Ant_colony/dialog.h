@@ -3,8 +3,9 @@
 
 #include <QDialog>
 #include <QtCore>
-//#include <QtGui>
 #include <QGraphicsScene>
+#include "anthill.h"
+#include "food.h"
 
 namespace Ui {
 class Dialog;
@@ -25,9 +26,9 @@ private:
 
     void addRectangularBoundaryLinesToScene(Qt::GlobalColor color);
     void addGraphicsViewToUi();
-    void addAnthillToScene();
-    void addFoodToScene();
-    void addAntsToScene();
+    Anthill *addAnthillToScene();
+    QList<Food *> addFoodToScene();
+    void addAntsToScene(Anthill* anthill, QList<Food *> foodList);
     void setTimerToScene();
 };
 

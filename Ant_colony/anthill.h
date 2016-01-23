@@ -9,6 +9,7 @@ class Anthill : public QGraphicsEllipseItem
 {
 public:
     Anthill();
+    void storeFood(int foodAmount);
 
 private:
     int foodAmount;

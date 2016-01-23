@@ -4,11 +4,13 @@
 #include <QPainter>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
+#include <anthill.h>
+#include <food.h>
 
 class Ant : public QGraphicsEllipseItem
 {
 public:
-    Ant(int id);
+    Ant(int id,Anthill* anthill, QList<Food *> foodList);
     void setNewPositionIfSceneCollision();
 
 protected:
@@ -17,14 +19,25 @@ protected:
 private:
     int id;
     int diameter;
-    qreal angle;
+    int angle;
     qreal speed;
+    int foodAmount;
+    Anthill *anthill;
+    QList<Food *> foodList;
+    Food * foodCollidingItem;
 
-    void turnAngleAndMove(int angle);
+    void turnAngleAndMove(int angle = 0);
     void turnRandomAngleAndMove(int angle);
     qreal calculateVectorValue(qreal x, qreal y);
-    QPointF calculatePositionToAnthill(qreal diffX, qreal diffY);
+    int calculateAngleToPos(int x, int y);
     void moveToAnthill();
+    bool isCollidingWithAnthill();
+    bool isCollidingWithFood();
+    void collectFood(Food* food);
+    void handleFoodCollision();
+    void storeFoodToAnthill();
+    void handleAnthillCollision();
+    bool isAntFull();
 
 signals:
 

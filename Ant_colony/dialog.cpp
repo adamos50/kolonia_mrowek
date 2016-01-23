@@ -1,8 +1,6 @@
 #include "dialog.h"
 #include "ui_dialog.h"
-#include "anthill.h"
 #include "ant.h"
-#include "food.h"
 #include "constants.h"
 
 #include <QDebug>
@@ -32,27 +30,31 @@ void Dialog::addGraphicsViewToUi()
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
 
-void Dialog::addAnthillToScene()
+Anthill* Dialog::addAnthillToScene()
 {
     Anthill *anthill = new Anthill();
     scene->addItem(anthill);
+    return anthill;
 }
 
-void Dialog::addFoodToScene()
+QList<Food *> Dialog::addFoodToScene()
 {
+    QList<Food *> foodList;
     for(int i = 0; i < Constants::FOOD_COUNT; ++i)
     {
         Food *food = new Food(i+1);
+        foodList.push_back(food);
         scene->addItem(food);
         food->setNewPositionIfSceneCollision();
     }
+    return foodList;
 }
 
-void Dialog::addAntsToScene()
+void Dialog::addAntsToScene(Anthill* anthill, QList<Food *> foodList)
 {
     for(int i = 0; i < Constants::ANTS_COUNT; ++i)
     {
-        Ant *ant = new Ant(i+1);
+        Ant *ant = new Ant(i+1, anthill, foodList);
         scene->addItem(ant);
         ant->setNewPositionIfSceneCollision();
     }
@@ -73,9 +75,10 @@ Dialog::Dialog(QWidget *parent) :
     addGraphicsViewToUi();
     addRectangularBoundaryLinesToScene(Qt::red);
 
-    addAnthillToScene();
-    addFoodToScene();
-    addAntsToScene();
+    Anthill* anthill =  addAnthillToScene();
+    QList<Food *> foodList = addFoodToScene();
+
+    addAntsToScene(anthill, foodList);
     setTimerToScene();
 }
 
