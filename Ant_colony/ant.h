@@ -29,12 +29,12 @@ private:
     void turnAngleAndMove(int angle = 0);
     void turnRandomAngleAndMove(int angle);
     qreal calculateVectorValue(qreal x, qreal y);
-    QPointF calculateDifferenceToPos(int x, int y);
-    int calculateAngleToPos(int x, int y);
+    QPointF calculateDifferenceToPos(QPointF position);
+    int calculateAngleToPos(QPointF position);
     void moveToAnthill();
     bool isCollidingWithAnthill();
     bool isCollidingWithFood();
-    void collectFood(Food* food);
+    void collectFood();
     void handleFoodCollision();
     void storeFoodToAnthill();
     void handleAnthillCollision();

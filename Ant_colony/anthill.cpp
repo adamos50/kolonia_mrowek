@@ -20,3 +20,8 @@ void Anthill::storeFood(int foodAmount)
     qDebug() << "Food stored in anthill. Actual food amount: " << this-> foodAmount;
 }
 
+int Anthill::getDiameter() const
+{
+    return this->diameter;
+}
+

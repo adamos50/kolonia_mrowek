@@ -8,9 +8,9 @@ namespace Constants
     const int SCENE_RECT_WIDTH = 500;
     const int SCENE_RECT_HIGH = 300;
 
-    const int TIMER_STEP_MS = 30;
+    const int TIMER_STEP_MS = 50;
 
-    const int ANTS_COUNT = 3;
+    const int ANTS_COUNT = 6;
     const int ANT_SPEED = 2;
     const int ANT_DIAMETER = 20;
     const int ANT_ANGLE = 15;
