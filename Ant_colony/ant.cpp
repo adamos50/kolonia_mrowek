@@ -70,8 +70,8 @@ qreal Ant::calculateVectorValue(qreal x, qreal y)
 
 QPointF Ant::calculateDifferenceToPos(QPointF position)
 {
-    return QPointF(position.x() - pos().x() - this->diameter/2,
-                   position.y() - pos().y() - this->diameter/2);
+    return QPointF(pos().x() + this->diameter/2 - position.x(),
+                   pos().y() + this->diameter/2 - position.y());
 }
 
 int Ant::calculateAngleToPos(QPointF position)
@@ -80,16 +80,35 @@ int Ant::calculateAngleToPos(QPointF position)
     qreal diffVectorValue = calculateVectorValue(diffPosition.x(), diffPosition.y());
 
     int newAngle = qRadiansToDegrees(qAsin(abs(diffPosition.y()) / diffVectorValue));
-    //qDebug() << "Angle from: (" << pos().x() + this->diameter/2 << " " << pos().y() + this->diameter/2 << ") to (" << position.x() << " " << position.y() << ") is " << newAngle + 180;
-    //qDebug() << abs(diffPosition.y()) << " " << diffVectorValue << " " << abs(diffPosition.y()) / diffVectorValue << " " << qAsin(abs(diffPosition.y()) / diffVectorValue);
-    return newAngle + 180;
+
+    if (diffPosition.y() < 0)
+    {
+        return 180 - newAngle;
+    }
+    if (diffPosition.x() < 0)
+    {
+        return 360 - newAngle;
+    }
+    return 180 + newAngle;
 }
 
 void Ant::moveToAnthill()
 {
-    this->angle = calculateAngleToPos(QPointF(anthill->x() + anthill->getDiameter()/2,
-                                              anthill->y() + anthill->getDiameter()/2));
+    this->angle = calculateAngleToPos(QPointF(anthill->x(),
+                                              anthill->y()));
     turnAngleAndMove();
+}
+
+void Ant::makeAMove()
+{
+    if (isAntFull())
+    {
+        moveToAnthill();
+    }
+    else
+    {
+        turnRandomAngleAndMove(Constants::ANT_ANGLE);
+    }
 }
 
 bool Ant::isCollidingWithAnthill()
@@ -121,10 +140,7 @@ void Ant::collectFood()
 
 void Ant::handleFoodCollision()
 {
-    for (Food* food: foodList)
-    {
-        collectFood();
-    }
+    collectFood();
 }
 
 void Ant::storeFoodToAnthill()
@@ -151,14 +167,7 @@ void Ant::advance(int phase)
 {
     if(!phase) return;
 
-    if (isAntFull())
-    {
-        moveToAnthill();
-    }
-    else
-    {
-        turnRandomAngleAndMove(Constants::ANT_ANGLE);
-    }
+    makeAMove();
 
     if(scene()->collidingItems(this).isEmpty())
     {
@@ -176,11 +185,10 @@ void Ant::advance(int phase)
                 handleAnthillCollision();
                 turnAngleAndMove(180);
             }
-
-            if (isCollidingWithFood())
+            else if (isCollidingWithFood())
             {
-                QPointF anthillPos = QPointF(anthill->x() + anthill->getDiameter()/2,
-                                             anthill->y() + anthill->getDiameter()/2);
+                QPointF anthillPos = QPointF(anthill->x(),
+                                             anthill->y());
                 QPointF foodPos = QPointF(foodCollidingItem->x() + foodCollidingItem->getDiameter()/2,
                                           foodCollidingItem->y() + foodCollidingItem->getDiameter()/2);
 
@@ -189,7 +197,7 @@ void Ant::advance(int phase)
 
                 qDebug() << "Anthill angle: " << anthillAngle << ". Food angle: " << foodAngle;
 
-                int angleDiff = (anthillAngle + 360) % 360 - (foodAngle + 360) % 360;
+                int angleDiff = anthillAngle - foodAngle;
 
                 turnAngleAndMove(180);
                 this->angle = foodAngle;
@@ -205,6 +213,11 @@ void Ant::advance(int phase)
                     qDebug() << "Turn right ant " << this->id;
                 }
             }
+            else
+            {
+                turnRandomAngleAndMove(-20);
+                turnRandomAngleAndMove(20);
+            }
         }
         else
         {
@@ -216,6 +229,5 @@ void Ant::advance(int phase)
         }
 
         setBrush(Qt::red);
-        //turnRandomAngleAndMove(-30);
     }
 }

@@ -12,11 +12,11 @@ namespace Constants
 
     const int ANTS_COUNT = 20;
     const int ANT_SPEED = 2;
-    const int ANT_DIAMETER = 20;
+    const int ANT_DIAMETER = 15;
     const int ANT_ANGLE = 15;
     const int ANT_CAPACITY = 10;
 
-    const int FOOD_COUNT = 5;
+    const int FOOD_COUNT = 7;
     const int FOOD_DIAMETER = 50;
     const int FOOD_AMOUNT = 100;
 

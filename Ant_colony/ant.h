@@ -33,6 +33,7 @@ private:
     QPointF calculateDifferenceToPos(QPointF position);
     int calculateAngleToPos(QPointF position);
     void moveToAnthill();
+    void makeAMove();
     bool isCollidingWithAnthill();
     bool isCollidingWithFood();
     void collectFood();
