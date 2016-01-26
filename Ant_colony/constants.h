@@ -14,16 +14,16 @@ namespace Constants
     const int ANT_SPEED = 2;
     const int ANT_DIAMETER = 15;
     const int ANT_ANGLE = 15;
-    const int ANT_CAPACITY = 10;
+    const int ANT_CAPACITY = 1;
 
-    const int FOOD_COUNT = 7;
+    const int FOOD_COUNT = 5;
     const int FOOD_DIAMETER = 50;
-    const int FOOD_AMOUNT = 100;
+    const int FOOD_AMOUNT = 10;
 
     const int ANTHILL_DIAMETER = 100;
     const int ANTHILL_CAPACITY = 0;
-    const int ANTHILL_X = Constants::SCENE_RECT_X + 20;
-    const int ANTHILL_Y = Constants::SCENE_RECT_Y + 20;
+    const int ANTHILL_X = SCENE_RECT_X + ANT_DIAMETER;
+    const int ANTHILL_Y = SCENE_RECT_Y + ANT_DIAMETER;
 }
 
 #endif // CONSTANTS

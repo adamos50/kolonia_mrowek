@@ -14,7 +14,7 @@ public:
     int getDiameter() const;
 
 protected:
-    void advance(int phase);
+    //void advance(int phase);
 
 private:
     int id;

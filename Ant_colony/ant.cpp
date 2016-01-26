@@ -104,10 +104,12 @@ void Ant::makeAMove()
     if (isAntFull())
     {
         moveToAnthill();
+        setBrush(Qt::red);
     }
     else
     {
         turnRandomAngleAndMove(Constants::ANT_ANGLE);
+        setBrush(Qt::blue);
     }
 }
 
@@ -134,7 +136,10 @@ void Ant::collectFood()
     QMutex mutex;
     mutex.lock();
     this->foodAmount = foodCollidingItem->yieldFood(Constants::ANT_CAPACITY);
-    qDebug() << "Ant " << this->id << " collected food.";
+//    if (this->foodAmount > 0)
+//    {
+//        qDebug() << "Ant " << this->id << " collected food.";
+//    }
     mutex.unlock();
 }
 
@@ -149,7 +154,7 @@ void Ant::storeFoodToAnthill()
     mutex.lock();
     anthill->storeFood(this->foodAmount);
     this->foodAmount = 0;
-    qDebug() << "Ant " << this->id << " stored its food to anthill.";
+    //qDebug() << "Ant " << this->id << " stored its food to anthill.";
     mutex.unlock();
 }
 
@@ -172,7 +177,7 @@ void Ant::advance(int phase)
     if(scene()->collidingItems(this).isEmpty())
     {
         //no collision
-        setBrush(Qt::blue);
+        //setBrush(Qt::blue);
     }
     else
     {
@@ -195,7 +200,7 @@ void Ant::advance(int phase)
                 int anthillAngle = calculateAngleToPos(anthillPos);
                 int foodAngle = calculateAngleToPos(foodPos);
 
-                qDebug() << "Anthill angle: " << anthillAngle << ". Food angle: " << foodAngle;
+                //qDebug() << "Anthill angle: " << anthillAngle << ". Food angle: " << foodAngle;
 
                 int angleDiff = anthillAngle - foodAngle;
 
@@ -205,12 +210,12 @@ void Ant::advance(int phase)
                 if (angleDiff < 0)
                 {
                     turnAngleAndMove(-90);
-                    qDebug() << "Turn left ant " << this->id;
+                    //qDebug() << "Turn left ant " << this->id;
                 }
                 else
                 {
                     turnAngleAndMove(90);
-                    qDebug() << "Turn right ant " << this->id;
+                    //qDebug() << "Turn right ant " << this->id;
                 }
             }
             else
@@ -228,6 +233,6 @@ void Ant::advance(int phase)
             turnAngleAndMove(180);
         }
 
-        setBrush(Qt::red);
+        //setBrush(Qt::red);
     }
 }

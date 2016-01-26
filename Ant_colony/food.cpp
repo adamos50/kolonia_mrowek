@@ -38,6 +38,10 @@ int Food::yieldFood(int foodAmount)
     if (this->foodAmount >= foodAmount)
     {
         this->foodAmount -= foodAmount;
+        if (this->foodAmount <= 0)
+        {
+            setBrush(Qt::gray);
+        }
         qDebug() << "Food collected. Actual food amount: " << this-> foodAmount;
         return foodAmount;
     }
@@ -49,18 +53,18 @@ int Food::getDiameter() const
     return diameter;
 }
 
-void Food::advance(int phase)
-{
-    if(!phase) return;
+//void Food::advance(int phase)
+//{
+//    if(!phase) return;
 
-    if(scene()->collidingItems(this).isEmpty())
-    {
-        //no collision
-        setBrush(Qt::darkGreen);
-    }
-    else
-    {
-        //collision!!!!
-        setBrush(Qt::red);
-    }
-}
+//    if(scene()->collidingItems(this).isEmpty())
+//    {
+//        //no collision
+//        //setBrush(Qt::darkGreen);
+//    }
+//    else
+//    {
+//        //collision!!!!
+//        //setBrush(Qt::red);
+//    }
+//}
